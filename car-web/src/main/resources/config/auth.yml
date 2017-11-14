@@ -1,0 +1,6 @@
+config:
+  crm:
+    auth:
+      whiteUrl: '/login;/outLogin;/loginIn;/;/biztmp/.*;'
+      loginFailedNumber: 5
+      loginFailedFreezeTime: 10800

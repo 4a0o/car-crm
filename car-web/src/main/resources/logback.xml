@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+
+    <property name="LOG_DIR" value="${user.home}/logs"/>
+    <property name="LOGGER_LEVEL" value="info"></property>
+    <!--PRIZE:改为false-->
+    <property name="ADDITIVITY" value="false"></property>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%clr(%date){faint} %clr(%-5level) %clr(%-40.40logger{39}){cyan} %clr(-){faint} %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- 票务模块日志 -->
+    <appender name="ticketAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/jkc-ticket.log</File>
+        <encoder>
+            <pattern>%date %-5level %-40.40logger{39} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/jkc-ticket.log.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.alicp.jkc.ticket" level="${LOGGER_LEVEL}" additivity="false">
+        <appender-ref ref="ticketAppender"/>
+    </logger>
+
+    <!-- 资源管理模块日志 -->
+    <appender name="rmsAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/jkc-rms.log</File>
+        <encoder>
+            <pattern>%date %-5level %-40.40logger{39} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/jkc-rms.log.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.alicp.jkc.rms" level="${LOGGER_LEVEL}" additivity="false">
+        <appender-ref ref="rmsAppender"/>
+    </logger>
+
+    <!-- 网关模块日志 -->
+    <appender name="gatewayAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/jkc-gateway.log</File>
+        <encoder>
+            <pattern>%date %-5level %-40.40logger{39} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/jkc-gateway.log.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.alicp.jkc.gateway" level="${LOGGER_LEVEL}" additivity="${ADDITIVITY}">
+        <appender-ref ref="gatewayAppender"/>
+    </logger>
+
+    <!-- 兑奖模块日志 -->
+    <appender name="awardAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/jkc-award.log</File>
+        <encoder>
+            <pattern>%date %-5level %-40.40logger{39} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/jkc-award.log.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.alicp.jkc.award" level="${LOGGER_LEVEL}" additivity="${ADDITIVITY}">
+        <appender-ref ref="awardAppender"/>
+    </logger>
+
+    <!-- 认证模块日志 -->
+    <appender name="authAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/jkc-auth.log</File>
+
+        <encoder>
+            <pattern>%date %-5level %-40.40logger{39} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/jkc-auth.log.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.alicp.jkc.auth" level="${LOGGER_LEVEL}" additivity="${ADDITIVITY}">
+        <appender-ref ref="authAppender"/>
+    </logger>
+
+    <logger name="com.alicp.jkc.crm.common.auth" level="${LOGGER_LEVEL}" additivity="${ADDITIVITY}">
+        <appender-ref ref="authAppender"/>
+    </logger>
+
+    <!-- crm模块日志 -->
+    <appender name="crmAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/jkc-crm.log</File>
+        <encoder>
+            <pattern>%date %-5level %-40.40logger{39} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/jkc-crm.log.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.alicp.jkc.crm" level="${LOGGER_LEVEL}" additivity="${ADDITIVITY}">
+        <appender-ref ref="crmAppender"/>
+    </logger>
+
+    <!-- 中心http日志 -->
+      <appender name="prizeGatewayAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+          <File>${LOG_DIR}/prize-gateway.log</File>
+          <encoder>
+              <pattern>%date %-5level %-40.40logger{39} - %msg%n</pattern>
+          </encoder>
+          <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+              <fileNamePattern>${LOG_DIR}/prize-gateway.log.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+              <maxHistory>7</maxHistory>
+          </rollingPolicy>
+      </appender>
+
+    <logger name="com.alicp.prize.gateway.service.tcjk.executor" level="${LOGGER_LEVEL}" additivity="${ADDITIVITY}">
+           <appender-ref ref="prizeGatewayAppender"/>
+       </logger>
+
+    <logger name="org.spring" level="debug" additivity="true">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <root level="${LOGGER_LEVEL}">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="crmAppender"/>
+    </root>
+
+</configuration>
